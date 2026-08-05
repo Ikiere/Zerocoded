@@ -2,6 +2,10 @@
   "version": 2,
   "rewrites": [
     { "source": "/api/(.*)", "destination": "/backend/api/$1" },
-    { "source": "/(.*)", "destination": "/frontend/$1" }
+    { "source": "/assets/(.*)", "destination": "/frontend/assets/$1" },
+    { "source": "/favicon.svg", "destination": "/frontend/favicon.svg" },
+    { "source": "/robots.txt", "destination": "/frontend/robots.txt" },
+    { "source": "/sitemap.xml", "destination": "/frontend/sitemap.xml" },
+    { "source": "/(.*)", "destination": "/frontend/index.html" }
   ]
 }
