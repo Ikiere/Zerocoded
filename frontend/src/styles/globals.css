@@ -1,0 +1,200 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ─── CSS Custom Properties ──────────────────────────────── */
+:root {
+  --color-primary: #2563ff;
+  --color-secondary: #0f172a;
+  --color-bg: #ffffff;
+  --color-surface: #f8fafc;
+  --color-border: #e5e7eb;
+  --color-text: #111827;
+  --color-muted: #64748b;
+
+  --font-sans: 'Inter', system-ui, sans-serif;
+
+  --radius-sm: 0.375rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+  --radius-xl: 1rem;
+  --radius-2xl: 1.5rem;
+
+  --shadow-soft: 0 2px 8px 0 rgba(0, 0, 0, 0.06);
+  --shadow-medium: 0 4px 24px 0 rgba(0, 0, 0, 0.08);
+  --shadow-large: 0 8px 48px 0 rgba(0, 0, 0, 0.12);
+}
+
+/* ─── Base Reset ─────────────────────────────────────────── */
+@layer base {
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  html {
+    font-family: var(--font-sans);
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  body {
+    background-color: #ffffff;
+    color: #111827;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    line-height: 1.2;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: #0f172a;
+  }
+
+  p {
+    color: #64748b;
+    line-height: 1.7;
+  }
+
+  a {
+    text-decoration: none;
+    color: inherit;
+  }
+
+  img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  button {
+    cursor: pointer;
+    font-family: inherit;
+  }
+
+  input, textarea, select {
+    font-family: inherit;
+  }
+
+  :focus-visible {
+    outline: 2px solid #2563ff;
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+}
+
+/* ─── Components ─────────────────────────────────────────── */
+@layer components {
+  /* Container */
+  .container-custom {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+
+  /* Section spacing */
+  .section-padding {
+    @apply py-20 md:py-28;
+  }
+
+  /* Label above headings */
+  .section-label {
+    @apply text-xs font-semibold tracking-widest uppercase text-primary;
+  }
+
+  /* Gradient text */
+  .gradient-text {
+    @apply bg-clip-text text-transparent;
+    background-image: linear-gradient(135deg, #2563ff 0%, #1440c2 100%);
+  }
+
+  /* Blue underline accent */
+  .text-accent {
+    color: #2563ff;
+  }
+
+  /* Glass card */
+  .glass-card {
+    @apply bg-white/80 backdrop-blur-sm border border-border rounded-2xl;
+    box-shadow: var(--shadow-medium);
+  }
+
+  /* VS Code editor */
+  .editor-bg {
+    background-color: #1e1e1e;
+  }
+
+  .editor-sidebar {
+    background-color: #252526;
+  }
+
+  .editor-tab-active {
+    background-color: #1e1e1e;
+    border-top: 1px solid #2563ff;
+  }
+
+  .editor-tab-inactive {
+    background-color: #2d2d2d;
+  }
+
+  /* Syntax colors */
+  .syn-keyword  { color: #569cd6; }
+  .syn-string   { color: #ce9178; }
+  .syn-comment  { color: #6a9955; }
+  .syn-function { color: #dcdcaa; }
+  .syn-variable { color: #9cdcfe; }
+  .syn-number   { color: #b5cea8; }
+  .syn-type     { color: #4ec9b0; }
+  .syn-class    { color: #4fc1ff; }
+  .syn-tag      { color: #f44747; }
+  .syn-attr     { color: #9cdcfe; }
+  .syn-value    { color: #ce9178; }
+  .syn-plain    { color: #d4d4d4; }
+
+  /* Terminal */
+  .terminal-bg {
+    background-color: #0d1117;
+  }
+
+  .terminal-text {
+    color: #58a6ff;
+    font-family: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace;
+    font-size: 0.75rem;
+  }
+
+  /* Scrollbar */
+  .scrollbar-thin::-webkit-scrollbar {
+    width: 4px;
+    height: 4px;
+  }
+  .scrollbar-thin::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  .scrollbar-thin::-webkit-scrollbar-thumb {
+    background-color: rgba(100, 116, 139, 0.3);
+    border-radius: 2px;
+  }
+}
+
+/* ─── Utilities ──────────────────────────────────────────── */
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .animate-delay-100 { animation-delay: 100ms; }
+  .animate-delay-200 { animation-delay: 200ms; }
+  .animate-delay-300 { animation-delay: 300ms; }
+  .animate-delay-400 { animation-delay: 400ms; }
+  .animate-delay-500 { animation-delay: 500ms; }
+  .animate-delay-600 { animation-delay: 600ms; }
+
+  /* Noise texture */
+  .noise {
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+  }
+}
