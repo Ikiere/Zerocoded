@@ -1,5 +1,5 @@
 import { lazy, Suspense } from 'react';
-import { Routes, Route, useLocation } from 'react-router-dom';
+import { Routes, Route, useLocation, Navigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import Layout from '@/components/layout/Layout';
 
@@ -69,6 +69,7 @@ export default function Router() {
           <Route path="/blog" element={<PageTransition><BlogList /></PageTransition>} />
           <Route path="/blog/:slug" element={<PageTransition><BlogPost /></PageTransition>} />
           <Route path="/cv" element={<PageTransition><CV /></PageTransition>} />
+          <Route path="/admin" element={<Navigate to="/admin/login" replace />} />
           <Route path="/admin/login" element={<PageTransition><AdminLogin /></PageTransition>} />
           <Route path="/admin/dashboard" element={<PageTransition><AdminDashboard /></PageTransition>} />
 
