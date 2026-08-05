@@ -1,6 +1,7 @@
 import { VercelRequest, VercelResponse } from '@vercel/node';
 import type { Project } from '../../../shared/src/types';
 import { supabase } from '../../src/lib/supabase';
+import { allowCors } from '../../src/utils/cors';
 
 // Static project data — fallback if DB has no entries
 const STATIC_PROJECTS: Project[] = [
@@ -116,8 +117,7 @@ function filterProjects(list: Project[], category: any, featured: any): Project[
 }
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
-  res.setHeader('X-Content-Type-Options', 'nosniff');
-  res.setHeader('Cache-Control', 's-maxage=60, stale-while-revalidate=120');
+  if (allowCors(req, res)) return;
 
   if (req.method !== 'GET') {
     return res.status(405).json({ success: false, message: 'Method not allowed' });

@@ -1,5 +1,6 @@
 import { VercelRequest, VercelResponse } from '@vercel/node';
 import { supabase } from '../src/lib/supabase';
+import { allowCors } from '../src/utils/cors';
 
 const DEFAULT_SETTINGS = {
   github_username: 'ikiere',
@@ -9,8 +10,7 @@ const DEFAULT_SETTINGS = {
 };
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
-  res.setHeader('X-Content-Type-Options', 'nosniff');
-  res.setHeader('Cache-Control', 's-maxage=60, stale-while-revalidate=120');
+  if (allowCors(req, res)) return;
 
   if (req.method !== 'GET') {
     return res.status(405).json({ success: false, message: 'Method not allowed' });

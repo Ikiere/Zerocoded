@@ -1,6 +1,7 @@
 import { VercelRequest, VercelResponse } from '@vercel/node';
 import { supabase } from '../../src/lib/supabase';
 import type { BlogPost } from '../../../shared/src/types';
+import { allowCors } from '../../src/utils/cors';
 
 // Static fallback blog data for when DB is not yet seeded
 const STATIC_POSTS: BlogPost[] = [
@@ -46,8 +47,7 @@ const STATIC_POSTS: BlogPost[] = [
 ];
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
-  res.setHeader('X-Content-Type-Options', 'nosniff');
-  res.setHeader('Cache-Control', 's-maxage=300, stale-while-revalidate=600');
+  if (allowCors(req, res)) return;
 
   if (req.method !== 'GET') {
     return res.status(405).json({ success: false, message: 'Method not allowed' });

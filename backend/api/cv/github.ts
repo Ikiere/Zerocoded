@@ -1,5 +1,6 @@
 import { VercelRequest, VercelResponse } from '@vercel/node';
 import { supabase } from '../../src/lib/supabase';
+import { allowCors } from '../../src/utils/cors';
 
 // Simple in-memory cache to stay within GitHub's rate limits
 interface CacheEntry {
@@ -10,8 +11,7 @@ const cache: Record<string, CacheEntry> = {};
 const CACHE_TTL = 30 * 60 * 1000; // 30 minutes in milliseconds
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
-  res.setHeader('X-Content-Type-Options', 'nosniff');
-  res.setHeader('Cache-Control', 's-maxage=600, stale-while-revalidate=1800');
+  if (allowCors(req, res)) return;
 
   if (req.method !== 'GET') {
     return res.status(405).json({ success: false, message: 'Method not allowed' });

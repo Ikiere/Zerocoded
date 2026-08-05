@@ -2,20 +2,14 @@ import { VercelRequest, VercelResponse } from '@vercel/node';
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
 import { supabase } from '../../src/lib/supabase';
+import { allowCors } from '../../src/utils/cors';
 
 const JWT_SECRET = process.env.JWT_SECRET || 'fallback-secret-for-dev-only-change-in-prod';
 const FALLBACK_USER = process.env.ADMIN_USERNAME || 'admin';
 const FALLBACK_PASS = process.env.ADMIN_PASSWORD || 'admin123'; // Default fallback
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
-  res.setHeader('X-Content-Type-Options', 'nosniff');
-  res.setHeader('X-Frame-Options', 'DENY');
-
-  if (req.method === 'OPTIONS') {
-    res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
-    res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
-    return res.status(200).end();
-  }
+  if (allowCors(req, res)) return;
 
   if (req.method !== 'POST') {
     return res.status(405).json({ success: false, message: 'Method not allowed' });

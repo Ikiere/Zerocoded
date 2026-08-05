@@ -3,13 +3,10 @@ import { newsletterSchema } from '../../shared/src/schemas';
 import { sanitizeObject } from '../src/utils/sanitize';
 import { sendNewsletterConfirmation } from '../src/lib/nodemailer';
 import { supabase } from '../src/lib/supabase';
+import { allowCors } from '../src/utils/cors';
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
-  res.setHeader('X-Content-Type-Options', 'nosniff');
-
-  if (req.method === 'OPTIONS') {
-    return res.status(200).end();
-  }
+  if (allowCors(req, res)) return;
 
   if (req.method !== 'POST') {
     return res.status(405).json({ success: false, message: 'Method not allowed' });

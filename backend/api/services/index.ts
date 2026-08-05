@@ -1,5 +1,6 @@
 import { VercelRequest, VercelResponse } from '@vercel/node';
 import type { Service } from '../../../shared/src/types';
+import { allowCors } from '../../src/utils/cors';
 
 const SERVICES: Service[] = [
   {
@@ -77,8 +78,7 @@ const SERVICES: Service[] = [
 ];
 
 export default function handler(req: VercelRequest, res: VercelResponse) {
-  res.setHeader('X-Content-Type-Options', 'nosniff');
-  res.setHeader('Cache-Control', 's-maxage=3600, stale-while-revalidate=7200');
+  if (allowCors(req, res)) return;
 
   if (req.method !== 'GET') {
     return res.status(405).json({ success: false, message: 'Method not allowed' });

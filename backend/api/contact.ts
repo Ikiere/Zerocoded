@@ -3,17 +3,10 @@ import { contactSchema } from '../../shared/src/schemas';
 import { sanitizeObject, containsInjection } from '../src/utils/sanitize';
 import { sendContactEmail } from '../src/lib/nodemailer';
 import { supabase } from '../src/lib/supabase';
+import { allowCors } from '../src/utils/cors';
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
-  // Security headers
-  res.setHeader('X-Content-Type-Options', 'nosniff');
-  res.setHeader('X-Frame-Options', 'DENY');
-
-  if (req.method === 'OPTIONS') {
-    res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
-    res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
-    return res.status(200).end();
-  }
+  if (allowCors(req, res)) return;
 
   if (req.method !== 'POST') {
     return res.status(405).json({ success: false, message: 'Method not allowed' });
