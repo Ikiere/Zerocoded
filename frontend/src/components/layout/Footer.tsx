@@ -1,6 +1,8 @@
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { Facebook, Twitter, Linkedin, Instagram, ArrowRight } from 'lucide-react';
+import { Facebook, Twitter, Linkedin, Instagram } from 'lucide-react';
 import NewsletterForm from '@/components/forms/NewsletterForm';
+import api from '@/lib/axios';
 
 const QUICK_LINKS = [
   { label: 'Home', href: '/' },
@@ -36,6 +38,22 @@ const SOCIAL = [
 ];
 
 export default function Footer() {
+  const [certUrl, setCertUrl] = useState<string | null>(null);
+
+  useEffect(() => {
+    async function fetchSettings() {
+      try {
+        const res = await api.get('/api/settings');
+        if (res.data?.data?.business_cert_url) {
+          setCertUrl(res.data.data.business_cert_url);
+        }
+      } catch (err) {
+        // Ignore settings query error in footer
+      }
+    }
+    fetchSettings();
+  }, []);
+
   return (
     <footer className="bg-white border-t border-border">
       {/* Main footer grid */}
@@ -141,6 +159,11 @@ export default function Footer() {
             © {new Date().getFullYear()} Zerocoded. All rights reserved.
           </p>
           <div className="flex gap-4">
+            {certUrl && (
+              <a href={certUrl} target="_blank" rel="noopener noreferrer" className="text-xs text-muted hover:text-primary transition-colors">
+                Business Certificate
+              </a>
+            )}
             <Link to="/privacy" className="text-xs text-muted hover:text-primary transition-colors">
               Privacy Policy
             </Link>

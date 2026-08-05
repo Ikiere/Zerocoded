@@ -10,6 +10,9 @@ const Portfolio = lazy(() => import('@/pages/Portfolio'));
 const Contact = lazy(() => import('@/pages/Contact'));
 const BlogList = lazy(() => import('@/pages/Blog/BlogList'));
 const BlogPost = lazy(() => import('@/pages/Blog/BlogPost'));
+const CV = lazy(() => import('@/pages/CV'));
+const AdminLogin = lazy(() => import('@/pages/Admin/Login'));
+const AdminDashboard = lazy(() => import('@/pages/Admin/Dashboard'));
 
 // Service pages
 const WebsiteDesign = lazy(() => import('@/pages/services/WebsiteDesign'));
@@ -65,6 +68,9 @@ export default function Router() {
           <Route path="/contact" element={<PageTransition><Contact /></PageTransition>} />
           <Route path="/blog" element={<PageTransition><BlogList /></PageTransition>} />
           <Route path="/blog/:slug" element={<PageTransition><BlogPost /></PageTransition>} />
+          <Route path="/cv" element={<PageTransition><CV /></PageTransition>} />
+          <Route path="/admin/login" element={<PageTransition><AdminLogin /></PageTransition>} />
+          <Route path="/admin/dashboard" element={<PageTransition><AdminDashboard /></PageTransition>} />
 
           {/* Service routes */}
           <Route path="/services/website-design" element={<PageTransition><WebsiteDesign /></PageTransition>} />

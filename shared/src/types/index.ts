@@ -65,6 +65,8 @@ export interface Project {
   year: number;
   featured: boolean;
   liveUrl?: string;
+  color?: string;
+  accentColor?: string;
 }
 
 export interface Service {
