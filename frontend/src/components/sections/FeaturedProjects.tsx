@@ -70,9 +70,9 @@ const PROJECTS = [
 function ProjectCard({ project }: { project: typeof PROJECTS[0] }) {
   return (
     <motion.div
-      className="group relative rounded-2xl overflow-hidden border border-border bg-white hover:shadow-large transition-all duration-300 cursor-pointer"
-      whileHover={{ y: -4 }}
-      transition={{ duration: 0.25 }}
+      className="group relative rounded-2xl overflow-hidden border border-border bg-white hover:border-primary/40 dark:hover:border-primary/50 hover:shadow-large transition-all duration-300 cursor-pointer"
+      whileHover={{ y: -8, scale: 1.015 }}
+      transition={{ type: 'spring', stiffness: 300, damping: 20 }}
     >
       {/* Image placeholder */}
       <div
@@ -80,7 +80,7 @@ function ProjectCard({ project }: { project: typeof PROJECTS[0] }) {
         style={{ backgroundColor: project.color }}
       >
         {/* UI decoration */}
-        <div className="absolute inset-3 rounded-lg opacity-60" style={{ border: `1px solid ${project.accentColor}40` }}>
+        <div className="absolute inset-3 rounded-lg opacity-60 group-hover:opacity-80 group-hover:scale-[1.02] transition-all duration-500" style={{ border: `1px solid ${project.accentColor}40` }}>
           <div className="p-2">
             <div className="flex gap-1 mb-2">
               <div className="w-2 h-2 rounded-full" style={{ backgroundColor: project.accentColor }} />
@@ -92,7 +92,7 @@ function ProjectCard({ project }: { project: typeof PROJECTS[0] }) {
               <div className="h-1.5 rounded-full bg-white/10 w-1/2" />
               <div className="grid grid-cols-3 gap-1 mt-3">
                 {[...Array(6)].map((_, i) => (
-                  <div key={i} className="h-10 rounded-md" style={{ backgroundColor: `${project.accentColor}20` }} />
+                  <div key={i} className="h-10 rounded-md transition-transform duration-300 group-hover:scale-95" style={{ backgroundColor: `${project.accentColor}20` }} />
                 ))}
               </div>
             </div>
@@ -101,9 +101,13 @@ function ProjectCard({ project }: { project: typeof PROJECTS[0] }) {
 
         {/* Hover overlay */}
         <div className="absolute inset-0 bg-secondary/80 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-          <div className="w-10 h-10 rounded-full bg-white flex items-center justify-center">
+          <motion.div 
+            className="w-10 h-10 rounded-full bg-white flex items-center justify-center"
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.9 }}
+          >
             <ExternalLink size={16} className="text-secondary" />
-          </div>
+          </motion.div>
         </div>
       </div>
 

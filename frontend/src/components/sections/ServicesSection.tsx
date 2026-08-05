@@ -3,6 +3,8 @@ import { Globe, Monitor, Smartphone, Figma, ShoppingCart, Palette, Code2, Brain 
 import AnimatedSection, { StaggerContainer, StaggerItem } from '@/components/ui/AnimatedSection';
 import Button from '@/components/ui/Button';
 
+import { motion } from 'framer-motion';
+
 const SERVICES = [
   {
     icon: Globe,
@@ -65,18 +67,29 @@ export default function ServicesSection() {
           <StaggerContainer className="grid grid-cols-1 sm:grid-cols-2 gap-6">
             {SERVICES.map(({ icon: Icon, title, description, href }) => (
               <StaggerItem key={title}>
-                <Link
-                  to={href}
-                  className="group block p-5 rounded-2xl border border-border bg-white hover:border-primary/30 hover:shadow-medium transition-all duration-300"
+                <motion.div
+                  whileHover={{ y: -6, scale: 1.01 }}
+                  transition={{ type: 'spring', stiffness: 300, damping: 22 }}
+                  className="h-full"
                 >
-                  <div className="w-10 h-10 rounded-xl bg-primary/8 flex items-center justify-center mb-3 group-hover:bg-primary/15 transition-colors duration-300">
-                    <Icon size={18} className="text-primary" />
-                  </div>
-                  <h3 className="text-sm font-semibold text-secondary mb-1.5 group-hover:text-primary transition-colors duration-200">
-                    {title}
-                  </h3>
-                  <p className="text-xs text-muted leading-relaxed">{description}</p>
-                </Link>
+                  <Link
+                    to={href}
+                    className="group block h-full p-6 rounded-2xl border border-border bg-white hover:border-primary/40 hover:shadow-medium transition-all duration-300 relative overflow-hidden"
+                  >
+                    {/* Hover subtle radial glow */}
+                    <div className="absolute inset-0 bg-gradient-to-br from-primary/3 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
+
+                    <div className="relative z-10">
+                      <div className="w-10 h-10 rounded-xl bg-primary/8 flex items-center justify-center mb-4 group-hover:bg-primary/20 group-hover:scale-105 transition-all duration-300">
+                        <Icon size={18} className="text-primary group-hover:rotate-6 transition-transform duration-300" />
+                      </div>
+                      <h3 className="text-sm font-semibold text-secondary mb-2 group-hover:text-primary transition-colors duration-200">
+                        {title}
+                      </h3>
+                      <p className="text-xs text-muted leading-relaxed">{description}</p>
+                    </div>
+                  </Link>
+                </motion.div>
               </StaggerItem>
             ))}
           </StaggerContainer>

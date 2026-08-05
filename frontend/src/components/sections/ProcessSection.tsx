@@ -64,7 +64,11 @@ export default function ProcessSection() {
         <StaggerContainer className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-5 gap-6 mt-12">
           {STEPS.map((step, i) => (
             <StaggerItem key={step.number}>
-              <div className="relative">
+              <motion.div
+                whileHover={{ y: -4 }}
+                transition={{ type: 'spring', stiffness: 300, damping: 20 }}
+                className="relative group cursor-default"
+              >
                 {/* Connector line */}
                 {i < STEPS.length - 1 && (
                   <div className="hidden lg:block absolute top-8 left-full w-full h-px border-t border-dashed border-border z-0 -translate-y-1/2" />
@@ -73,18 +77,18 @@ export default function ProcessSection() {
                 <div className="relative z-10">
                   {/* Step number circle */}
                   <div
-                    className="w-16 h-16 rounded-full border-2 flex items-center justify-center mb-4 bg-white"
+                    className="w-16 h-16 rounded-full border-2 flex items-center justify-center mb-4 bg-white transition-all duration-300 group-hover:scale-110 group-hover:shadow-soft"
                     style={{ borderColor: step.color }}
                   >
-                    <span className="text-sm font-bold" style={{ color: step.color }}>
+                    <span className="text-sm font-bold transition-transform duration-300 group-hover:scale-110" style={{ color: step.color }}>
                       {step.number}
                     </span>
                   </div>
 
-                  <h3 className="text-base font-semibold text-secondary mb-1.5">{step.title}</h3>
+                  <h3 className="text-base font-semibold text-secondary group-hover:text-primary transition-colors duration-200 mb-1.5">{step.title}</h3>
                   <p className="text-xs text-muted leading-relaxed">{step.description}</p>
                 </div>
-              </div>
+              </motion.div>
             </StaggerItem>
           ))}
         </StaggerContainer>
