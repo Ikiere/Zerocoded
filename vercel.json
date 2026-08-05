@@ -3,15 +3,5 @@
   "rewrites": [
     { "source": "/api/(.*)", "destination": "/backend/api/$1" },
     { "source": "/(.*)", "destination": "/frontend/$1" }
-  ],
-  "projects": [
-    {
-      "name": "zerocoded-frontend",
-      "root": "frontend"
-    },
-    {
-      "name": "zerocoded-backend",
-      "root": "backend"
-    }
   ]
 }
