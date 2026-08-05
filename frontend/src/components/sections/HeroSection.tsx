@@ -75,7 +75,8 @@ function VSCodeEditor() {
     let i = 0;
     const interval = setInterval(() => {
       if (i < TERMINAL_LINES.length) {
-        setTerminalLines((prev) => [...prev, TERMINAL_LINES[i]]);
+        const nextLine = TERMINAL_LINES[i];
+        setTerminalLines((prev) => [...prev, nextLine]);
         i++;
       } else {
         clearInterval(interval);
