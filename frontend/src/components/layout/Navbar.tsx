@@ -1,9 +1,10 @@
 import { useState, useEffect } from 'react';
 import { Link, NavLink, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X, ChevronDown } from 'lucide-react';
+import { Menu, X, ChevronDown, Sun, Moon } from 'lucide-react';
 import { cn } from '@/utils/cn';
 import Button from '@/components/ui/Button';
+import { useTheme } from '@/context/ThemeContext';
 
 const NAV_LINKS = [
   { label: 'Home', href: '/' },
@@ -42,6 +43,7 @@ function ZerocodedLogo({ className }: { className?: string }) {
 }
 
 export default function Navbar() {
+  const { theme, toggleTheme } = useTheme();
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [servicesOpen, setServicesOpen] = useState(false);
@@ -155,6 +157,13 @@ export default function Navbar() {
 
             {/* Desktop CTA */}
             <div className="hidden lg:flex items-center gap-3">
+              <button
+                onClick={toggleTheme}
+                className="p-2 rounded-lg text-muted hover:text-secondary hover:bg-surface transition-colors"
+                aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
+              >
+                {theme === 'dark' ? <Sun size={18} /> : <Moon size={18} />}
+              </button>
               <Link to="/contact">
                 <Button variant="primary" size="sm">
                   Contact Us
@@ -250,7 +259,24 @@ export default function Navbar() {
                 })}
               </nav>
 
-              <div className="p-4 border-t border-border">
+              <div className="p-4 border-t border-border flex flex-col gap-3">
+                <div className="flex items-center justify-between">
+                  <span className="text-sm font-medium text-muted">Theme</span>
+                  <button
+                    onClick={toggleTheme}
+                    className="flex items-center gap-2 px-3 py-1.5 rounded-lg border border-border text-sm font-medium text-secondary hover:bg-surface transition-colors"
+                  >
+                    {theme === 'dark' ? (
+                      <>
+                        <Sun size={16} /> Light
+                      </>
+                    ) : (
+                      <>
+                        <Moon size={16} /> Dark
+                      </>
+                    )}
+                  </button>
+                </div>
                 <Link to="/contact" className="block">
                   <Button variant="primary" size="md" className="w-full justify-center">
                     Contact Us
