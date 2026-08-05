@@ -73,7 +73,7 @@ export const quoteSchema = z.object({
     .max(5000, 'Description must not exceed 5000 characters'),
   consentGiven: z
     .boolean()
-    .refine((val) => val === true, 'You must consent to our privacy policy'),
+    .refine((val: boolean) => val === true, 'You must consent to our privacy policy'),
 });
 
 // Newsletter schema
